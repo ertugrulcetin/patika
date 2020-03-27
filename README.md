@@ -3,6 +3,7 @@
 Patika is a new Clojure routing library which is an abstraction over [Liberator](https://clojure-liberator.github.io/liberator/) + [Compojure](https://github.com/weavejester/compojure).
 
 ## Installation
+[![Clojars Project](https://img.shields.io/clojars/v/patika.svg)](https://clojars.org/patika)
 
 ## Usage
 ```clojure
