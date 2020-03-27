@@ -10,7 +10,7 @@ Patika is a new Clojure routing library which is an abstraction over [Liberator]
 (require '[patika.core :refer [resource get-routes]])
 ```
 
-## Let's check an full example
+## Let's work on a full example
 ```clojure
 (ns patika.api.common
   (:require [patika.core :refer [resource get-routes]]
