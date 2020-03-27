@@ -1,6 +1,6 @@
 # patika
 
-Patika is a new Clojure routing library which is an abstraction over Liberator + Compojure.
+Patika is a new Clojure routing library which is an abstraction over [Liberator](https://clojure-liberator.github.io/liberator/) + [Compojure](https://github.com/weavejester/compojure).
 
 ## Installation
 
@@ -18,21 +18,29 @@ Patika is a new Clojure routing library which is an abstraction over Liberator +
             [ring.adapter.jetty :refer [run-jetty]]
             [liberator.representation :as rep]))
 
+
+;; Response returns text/plain
 (resource hello
           :get ["/hello"]
           :content-type :text
           :handle-ok (fn [ctx] "Hello World"))
 
+
+;; Response returns plain HTML
 (resource home
           :get ["/"]
           :content-type :html
           :handle-ok (fn [ctx] "<html><body>Hello Patika!</body></html>"))
 
+
+;; Response returns JSON, no need manuel JSON transformation!
 (resource users
           :get ["/users"]
           :content-type :json
           :handle-ok (fn [ctx] [{:name "Ertuğrul" :age 28} {:name "Çetin" :age 22}]))
 
+
+;; PUT example, response returns -> {:success? true} in JSON format
 (resource create-user
           :put ["/users"]
           :content-type :json
@@ -41,6 +49,9 @@ Patika is a new Clojure routing library which is an abstraction over Liberator +
                     (create-user (:email data) (:password data))))
           :handle-ok (fn [ctx] {:success? true}))
 
+
+;; POST example, response returns -> {:success? true :user-id id} in JSON format
+;; Also, manuel exception handling with :handle-exception
 (resource activate-user
           :post ["/users/:id" [id]]
           ;;You can use coercion like this ["/users/:id" [id :<< compojure.coercions/as-int]]
@@ -50,14 +61,18 @@ Patika is a new Clojure routing library which is an abstraction over Liberator +
           ;;Optional, if you want to handle exception. If you don't set your own, default one will be used.
           :handle-exception (fn [ctx] (println "Error ocurred: " (:exception ctx))))
 
+
+;; Route with AUTHORIZATION -> :auth-fn
 (resource send-event
           :put ["/events"]
           :content-type :json
-          ;;If :auth-fn return TRUTHY value, then it proceeds. If not, client gets 401 HTTP error.
+          ;;If :auth-fn returns TRUTHY value, then it proceeds. If not, client gets 401 HTTP error.
           :auth-fn (fn [ctx] (-> ctx :request :headers (get "x-auth-token")))
           :put! #(create-event %)
           :handle-ok (fn [_] {:success? true}))
 
+
+;; Redirect and Cookie Set example -> :redirect! and :as-response
 (resource dictionary
           :get ["/dictionary/:word" [word]]
           :content-type :html
@@ -73,11 +88,15 @@ Patika is a new Clojure routing library which is an abstraction over Liberator +
                          (-> (rep/as-response (:body word-data) ctx)
                              (assoc-in [:headers "Set-Cookie"] (str "word=" (:word word-data) ";details=" (:details word-data))))))
 
+
+;; Generating sitemap.xml
 (resource sitemap
           :get ["/sitemap.xml"]
           :content-type :xml
           :handle-ok (fn [_] (generate-sitemap-string)))
 
+
+;; If provided routes do not exists, they will be redirected to this one. 
 (c/defroutes not-found
              (r/not-found "404!"))
 
