@@ -17,6 +17,4 @@
                  [org.clojure/tools.logging "1.0.0"]
                  [org.clojure/java.classpath "1.0.0"]
                  [org.clojure/tools.namespace "1.0.0"]
-                 [liberator "0.15.3"]]
-
-  :min-lein-version "2.5.3")
+                 [liberator "0.15.3"]])
