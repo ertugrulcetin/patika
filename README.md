@@ -98,7 +98,6 @@ Patika is a new Clojure routing library which is an abstraction over [Liberator]
                    (let [file (-> ctx :request :params (get "file") :tempfile)]
                      (with-open [rdr (io/reader file)]
                        ...)))
-          ;;TODO will look into that -> resource.util scope does not work
           :handle-exception #(.getMessage (:exception %)))
 
 
