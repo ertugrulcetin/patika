@@ -19,20 +19,4 @@
                  [org.clojure/tools.namespace "1.0.0"]
                  [liberator "0.15.3"]]
 
-  :plugins [[lein-ancient "0.6.15"]]
-
-  :min-lein-version "2.5.3"
-
-  :repl-options {:init-ns patika.core}
-
-  :source-paths ["src"]
-
-  :test-paths ["test"]
-
-  :resource-paths ["resources"]
-
-  :target-path "target/%s/"
-
-  :main ^:skip-aot patika.core
-
-  :clean-targets ^{:protect false} ["target"])
+  :min-lein-version "2.5.3")
