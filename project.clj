@@ -1,6 +1,6 @@
 (defproject patika "0.1.0"
 
-  :description "FIXME: write description"
+  :description "Clojure routing library which is an abstraction over Liberator + Compojure"
 
   :url "https://github.com/ertugrulcetin/patika"
 
