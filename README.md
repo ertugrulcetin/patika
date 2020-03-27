@@ -89,6 +89,18 @@ Patika is a new Clojure routing library which is an abstraction over [Liberator]
                              (assoc-in [:headers "Set-Cookie"] (str "word=" (:word word-data) ";details=" (:details word-data))))))
 
 
+;; Uploading some file, multipart data
+(resource upload-file
+          :post ["/upload"]
+          :content-type :multipart
+          :post! (fn [ctx]
+                   (let [file (-> ctx :request :params (get "file") :tempfile)]
+                     (with-open [rdr (io/reader file)]
+                       ...)))
+          ;;TODO will look into that -> resource.util scope does not work
+          :handle-exception #(.getMessage (:exception %)))
+
+
 ;; Generating sitemap.xml
 (resource sitemap
           :get ["/sitemap.xml"]
