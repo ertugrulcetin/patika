@@ -78,7 +78,7 @@ Patika is a new Clojure routing library which is an abstraction over [Liberator]
           :get ["/dictionary/:word" [word]]
           :content-type :html
           ;;If first value of vector returns `true` then there will be redirection to /word-does-not-exist path.
-          :redirect! [(not (get dictionary word)) "/word-does-not-exist"]
+          :redirect! [(not (get dictionary-map word)) "/word-does-not-exist"]
           :handle-ok (fn [_]
                        (let [details   (get-word-details word)
                              word-data {:word    word
