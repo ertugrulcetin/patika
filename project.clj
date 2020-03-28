@@ -1,4 +1,4 @@
-(defproject patika "0.1.0"
+(defproject patika "0.1.10"
 
   :description "Clojure routing library which is an abstraction over Liberator + Compojure"
 
@@ -18,4 +18,5 @@
                  [org.clojure/tools.logging "1.0.0"]
                  [org.clojure/java.classpath "1.0.0"]
                  [org.clojure/tools.namespace "1.0.0"]
+                 [compojure "1.6.1"]
                  [liberator "0.15.3"]])
