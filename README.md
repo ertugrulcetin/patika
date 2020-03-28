@@ -116,7 +116,7 @@ Patika is a new Clojure routing library which is an abstraction over [Liberator]
 (defn run-dev-server
   [port]
   ;;Scans namespaces then filters namespaces start with "patika.api." and registers routes automatically.
-  ;;You can also manually register routes instead of using :resource-ns-path
+  ;;You can also manually register routes by using :resource-ns-vec
   ;;-> {:resource-ns-vec '[patika.api.common patika.api.users patika.api.segments ..]}
   (run-jetty (get-routes {:resource-ns-path "patika.api."
                           :not-found-route  'patika.api.common/not-found})
