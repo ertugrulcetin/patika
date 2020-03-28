@@ -47,7 +47,7 @@ Patika is a new Clojure routing library which is an abstraction over [Liberator]
           :content-type :json
           :put! (fn [ctx]
                   (let [data (clojure.walk/keywordize-keys (:request-data ctx))]
-                    (create-user (:email data) (:password data))))
+                    (create-user! (:email data) (:password data))))
           :handle-ok (fn [ctx] {:success? true}))
 
 
@@ -57,7 +57,7 @@ Patika is a new Clojure routing library which is an abstraction over [Liberator]
           :post ["/users/:id" [id]]
           ;;You can use coercion like this ["/users/:id" [id :<< compojure.coercions/as-int]]
           :content-type :json
-          :post! (fn [ctx] (activate-user id))
+          :post! (fn [ctx] (activate-user-by-id id))
           :handle-created (fn [ctx] {:success? true :user-id id})
           ;;Optional, if you want to handle exception. If you don't set your own, default one will be used.
           :handle-exception (fn [ctx] (println "Error ocurred: " (:exception ctx))))
