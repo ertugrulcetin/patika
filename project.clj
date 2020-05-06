@@ -1,4 +1,4 @@
-(defproject patika "0.1.10"
+(defproject patika "0.1.11"
 
   :description "Clojure routing library which is an abstraction over Liberator + Compojure"
 

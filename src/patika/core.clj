@@ -198,22 +198,21 @@
 (defmacro resource
   [name method endpoint-and-binding _ media-type & opts]
   (let [resource-name (symbol (str "resource-" name))]
-    `(def ~(vary-meta resource-name assoc :resource? true)
-       (compojure/defroutes ~name
-                            (~(case method
-                                :get `compojure/GET
-                                :post `compojure/POST
-                                :put `compojure/PUT
-                                :delete `compojure/DELETE)
-                              ~(first endpoint-and-binding)
-                              ~(if (seq (second endpoint-and-binding)) (second endpoint-and-binding) [])
-                              (let [method-map#     ~(get-method-map method)
-                                    type-map#       ~(get-media-type-map media-type)
-                                    m#              ~(multi-params->map opts)
-                                    handle-ok-maps# ~(get-handle-ok-or-create-map method media-type)
-                                    auth-maps#      (get-auth-and-redirect-maps m#)
-                                    r#              (merge method-map# type-map# handle-ok-maps# auth-maps# m#)]
-                                (liberator/resource r#)))))))
+    `(compojure/defroutes ~(vary-meta resource-name assoc :resource? true)
+                          (~(case method
+                              :get `compojure/GET
+                              :post `compojure/POST
+                              :put `compojure/PUT
+                              :delete `compojure/DELETE)
+                            ~(first endpoint-and-binding)
+                            ~(if (seq (second endpoint-and-binding)) (second endpoint-and-binding) [])
+                            (let [method-map#     ~(get-method-map method)
+                                  type-map#       ~(get-media-type-map media-type)
+                                  m#              ~(multi-params->map opts)
+                                  handle-ok-maps# ~(get-handle-ok-or-create-map method media-type)
+                                  auth-maps#      (get-auth-and-redirect-maps m#)
+                                  r#              (merge method-map# type-map# handle-ok-maps# auth-maps# m#)]
+                              (liberator/resource r#))))))
 
 
 (defn- find-ns-symbols
